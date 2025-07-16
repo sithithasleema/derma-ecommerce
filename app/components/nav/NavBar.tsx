@@ -2,8 +2,13 @@ import Link from "next/link";
 import Container from "../Container";
 import Image from "next/image";
 import CartCount from "./CartCount";
+import UserMenu from "./UserMenu";
+import { getCurrentUser } from "@/actions/getCurrentUser";
 
-const NavBar = () => {
+const NavBar = async () => {
+  const currentUser = await getCurrentUser();
+  console.log("User:", currentUser);
+
   return (
     <div className="sticky top-0 w-full bg-slate-200 z-30">
       <div className="py-4 border-b-[1px]">
@@ -24,7 +29,7 @@ const NavBar = () => {
               <div>
                 <CartCount />
               </div>
-              <div>UserMenu</div>
+              <UserMenu currentUser={currentUser} />
             </div>
           </div>
         </Container>

@@ -28,11 +28,11 @@ const Button = ({
       className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 transition w-full flex items-center justify-center gap-2 $
         ${
           outline
-            ? "text-slate-700 border-2 hover:border-b-4 hover:text-slate-700"
+            ? "text-slate-700 border-2 border-black hover:border-b-2 hover:text-slate-900"
             : "text-md"
         }
         ${small ? "text-sm font-light" : "text-md"}
-        ${small ? "py-1 px-2" : "py-3 px-4"}     
+        ${small ? "py-1 px-2 w-1/2" : "py-3 px-4"}     
         ${custom ? "bg-background text-white hover:bg-accent" : ""}   
                 `}
     >

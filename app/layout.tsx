@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Explore hand-painted abstract canvases, delicate watercolor florals, and modern Procreate prints. Shop high-quality canvas and framed art designed to elevate any space.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
