@@ -3,11 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import { connect } from "http2";
-import { products } from "@/utils/products";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2025-06-30.basil",
+  apiVersion: "2025-08-27.basil",
 });
 
 // Calculate Total amount in server side again to avoid client side manipulation
@@ -44,9 +42,8 @@ export async function POST(req: Request) {
   };
 
   if (payment_intent_id) {
-    const current_intent = await stripe.paymentIntents.retrieve(
-      payment_intent_id
-    );
+    const current_intent =
+      await stripe.paymentIntents.retrieve(payment_intent_id);
 
     if (
       current_intent.status === "requires_payment_method" ||
@@ -61,7 +58,7 @@ export async function POST(req: Request) {
       if (!existing_order) {
         return NextResponse.json(
           { error: "Invalid Payment Intent" },
-          { status: 400 }
+          { status: 400 },
         );
       }
 
@@ -69,7 +66,7 @@ export async function POST(req: Request) {
         payment_intent_id,
         {
           amount: total,
-        }
+        },
       );
 
       await prisma.order.update({
@@ -84,7 +81,7 @@ export async function POST(req: Request) {
     } else {
       return NextResponse.json(
         { error: "Payment Intent not updatable" },
-        { status: 400 }
+        { status: 400 },
       );
     }
   } else {
