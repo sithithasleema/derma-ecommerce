@@ -6,6 +6,7 @@ import UserMenu from "./UserMenu";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import Categories from "./Categories";
 import SearchBar from "../SearchBar";
+import { Suspense } from "react";
 
 const NavBar = async () => {
   const currentUser = await getCurrentUser();
@@ -60,7 +61,9 @@ const NavBar = async () => {
       {/* Categories bar (separate row, still sticky because header is sticky) */}
       <div className="border-t border-slate-200 bg-[#1f2f26]/95 backdrop-blur">
         <Container>
-          <Categories />
+          <Suspense fallback={null}>
+            <Categories />
+          </Suspense>
         </Container>
       </div>
     </header>

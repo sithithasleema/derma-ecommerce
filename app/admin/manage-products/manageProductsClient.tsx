@@ -8,10 +8,8 @@ import ActionBtn from "@/app/components/ActionBtn";
 import { MdCached, MdDelete, MdRemoveRedEye } from "react-icons/md";
 import { useCallback } from "react";
 import toast from "react-hot-toast";
-import { NextResponse } from "next/server";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Arapey } from "next/font/google";
 
 // Define the type that matches what Prisma query returns
 type ProductWithVariantsAndReviews = {
@@ -85,15 +83,15 @@ const ManageProductsClient = ({ products }: ManageProductsClientProps) => {
           variantId,
           inStock: !inStock,
         })
-        .then((res) => {
+        .then(() => {
           toast.success("Variant status changed");
           router.refresh();
         })
-        .catch((err) => {
+        .catch(() => {
           toast.error("Unable to change status");
         });
     },
-    []
+    [],
   );
 
   // Deleting variant from database - API CALL
@@ -103,15 +101,15 @@ const ManageProductsClient = ({ products }: ManageProductsClientProps) => {
         .delete("/api/variant", {
           data: { variantId, productId },
         })
-        .then((res) => {
+        .then(() => {
           toast.success("Variant Deleted");
           router.refresh();
         })
-        .catch((err) => {
+        .catch(() => {
           toast.error("Unable to delete");
         });
     },
-    []
+    [],
   );
 
   // Define your columns for the DataGrid

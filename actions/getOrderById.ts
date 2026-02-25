@@ -1,19 +1,16 @@
 import { prisma } from "@/lib/prisma";
 
-interface IParams {
-  orderId?: string;
-}
+export default async function getOrderById(orderId: string) {
+  if (!orderId) return null;
 
-export default async function getOrderById(params: IParams) {
   try {
-    const { orderId } = params;
     const order = await prisma.order.findUnique({
       where: { id: orderId },
     });
 
-    if (!order) return null;
-    return order;
+    return order ?? null;
   } catch (error) {
-    throw new Error();
+    console.error("getOrderById error:", error);
+    return null;
   }
 }

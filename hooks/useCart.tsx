@@ -33,7 +33,7 @@ export const CartContextProvider = (props: Props) => {
   const [cartTotalQty, setCartTotalQty] = useState(0);
   const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(
-    null
+    null,
   );
 
   const [paymentIntent, setPaymentIntent] = useState<string | null>(null);
@@ -42,16 +42,25 @@ export const CartContextProvider = (props: Props) => {
   console.log("Total", cartTotalAmount);
 
   useEffect(() => {
-    const cartItems: any = localStorage.getItem("eliteCanvasCartItems");
-    const cProducts: CartProductType[] | null = JSON.parse(cartItems);
+    try {
+      const cartItems = localStorage.getItem("eliteCanvasCartItems");
+      const rawPaymentIntent = localStorage.getItem("eliteCanvasPaymentIntent");
 
-    const eliteCanvasPaymentIntent: string | null = localStorage.getItem(
-      "eliteCanvasPaymentIntent"
-    );
-    const paymentIntent: string | null = JSON.parse(eliteCanvasPaymentIntent);
+      const cProducts: CartProductType[] | null = cartItems
+        ? JSON.parse(cartItems)
+        : null;
 
-    setCartProducts(cProducts);
-    setPaymentIntent(paymentIntent);
+      const paymentIntent: string | null = rawPaymentIntent
+        ? JSON.parse(rawPaymentIntent)
+        : null;
+
+      setCartProducts(cProducts);
+      setPaymentIntent(paymentIntent);
+    } catch (error) {
+      console.error("Cart parse error:", error);
+      setCartProducts(null);
+      setPaymentIntent(null);
+    }
   }, []);
 
   // Calculating Total Quantity and price in Cart
@@ -67,7 +76,7 @@ export const CartContextProvider = (props: Props) => {
 
             return acc;
           },
-          { total: 0, qty: 0 }
+          { total: 0, qty: 0 },
         );
         setCartTotalQty(qty);
         setCartTotalAmount(total);
@@ -111,12 +120,12 @@ export const CartContextProvider = (props: Props) => {
         toast.success(`${product.name} is removed`);
         localStorage.setItem(
           "eliteCanvasCartItems",
-          JSON.stringify(filteredProducts)
+          JSON.stringify(filteredProducts),
         );
         return filteredProducts;
       }
     },
-    [cartProducts]
+    [cartProducts],
   );
 
   // Increasing Cart quantity
@@ -131,7 +140,7 @@ export const CartContextProvider = (props: Props) => {
         updatedCart = [...cartProducts];
 
         const existingIndex = cartProducts.findIndex(
-          (item) => item.id === product.id
+          (item) => item.id === product.id,
         );
 
         if (existingIndex > -1) {
@@ -142,11 +151,11 @@ export const CartContextProvider = (props: Props) => {
         setCartProducts(updatedCart);
         localStorage.setItem(
           "eliteCanvasCartItems",
-          JSON.stringify(updatedCart)
+          JSON.stringify(updatedCart),
         );
       }
     },
-    [cartProducts]
+    [cartProducts],
   );
 
   // Decreasing Cart quantity
@@ -161,7 +170,7 @@ export const CartContextProvider = (props: Props) => {
         updatedCart = [...cartProducts];
 
         const existingIndex = cartProducts.findIndex(
-          (item) => item.id === product.id
+          (item) => item.id === product.id,
         );
 
         if (existingIndex > -1) {
@@ -172,11 +181,11 @@ export const CartContextProvider = (props: Props) => {
         setCartProducts(updatedCart);
         localStorage.setItem(
           "eliteCanvasCartItems",
-          JSON.stringify(updatedCart)
+          JSON.stringify(updatedCart),
         );
       }
     },
-    [cartProducts]
+    [cartProducts],
   );
 
   // Clear Cart
@@ -193,7 +202,7 @@ export const CartContextProvider = (props: Props) => {
       localStorage.setItem("eliteCanvasPaymentIntent", JSON.stringify(val));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [paymentIntent]
+    [paymentIntent],
   );
 
   const value = {

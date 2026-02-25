@@ -7,12 +7,13 @@ import NullData from "@/app/components/NullData";
 import AddRating from "./AddRating";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 
-interface IParams {
-  productId?: string;
-}
+type PageProps = {
+  params: Promise<{ productId: string }>;
+};
 
-const Product = async ({ params }: { params: IParams }) => {
-  const product = await getProductById(params);
+const Product = async ({ params }: PageProps) => {
+  const { productId } = await params;
+  const product = await getProductById(productId);
   const user = await getCurrentUser();
 
   if (!product) return <NullData title="The product cannot be found" />;
