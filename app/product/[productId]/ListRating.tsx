@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Avatar from "@/app/components/Avatar";
@@ -11,8 +12,9 @@ interface ListRatingProps {
 }
 
 const ListRating = ({ product }: ListRatingProps) => {
+  if (product.reviews?.length === 0) return null;
   return (
-    <div>
+    <div className="review-section">
       <Heading title="Product Review" />
       <div>
         {product.reviews &&
@@ -32,8 +34,8 @@ const ListRating = ({ product }: ListRatingProps) => {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <Rating value={review.rating} readOnly></Rating>
-                  <p className="mt-4">{review.comment}</p>
+                  <Rating value={review?.rating} readOnly></Rating>
+                  <p className="mt-4">{review?.comment}</p>
                 </div>
               </div>
             );

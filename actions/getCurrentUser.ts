@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { prisma } from "@/lib/prisma";
@@ -16,10 +17,12 @@ export async function getCurrentUser() {
 
     const currentUser = await prisma.user.findUnique({
       where: {
-        email: session?.user?.email,
+        email: session.user.email,
+      },
+      include: {
+        orders: true,
       },
     });
-
     if (!currentUser) {
       return null;
     }
@@ -33,6 +36,7 @@ export async function getCurrentUser() {
       createdAt,
       updatedAt,
       emailVerified,
+      orders,
     } = currentUser;
 
     return {
@@ -44,6 +48,7 @@ export async function getCurrentUser() {
       createdAt: createdAt.toISOString(),
       updatedAt: updatedAt.toISOString(),
       emailVerified: emailVerified?.toISOString() || null,
+      orders,
     };
   } catch (error: any) {
     return null;

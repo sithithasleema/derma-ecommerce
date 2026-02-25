@@ -13,9 +13,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Elite Canvas Australia - Handcrafted Art Prints & Originals",
+  title: "Pure Derma - Botanical Skincare for Radiant Skin",
   description:
-    "Explore hand-painted abstract canvases, delicate watercolor florals, and modern Procreate prints. Shop high-quality canvas and framed art designed to elevate any space.",
+    "Discover Pure Derma, your go-to destination for botanical skincare. Our products harness the power of nature to nourish and revitalize your skin, leaving it radiant and healthy. Explore our collection of cleansers, serums, moisturizers, and more, all crafted with care to enhance your natural beauty.",
+  icons: {
+    icon: "/logo.png", // or .png, .svg
+  },
 };
 
 export default async function RootLayout({

@@ -46,7 +46,7 @@ const LoginForm = ({ currentUser }: LoginFormProps) => {
     }).then((callback) => {
       setIsLoading(false);
       if (callback?.ok) {
-        router.push("/cart");
+        router.push("/home");
         router.refresh();
         toast.success("Logged In");
       }

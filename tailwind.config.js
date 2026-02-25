@@ -10,11 +10,11 @@ export const theme = {
       sans: ["var(--font-poppins)", "ui-sans-serif", "system-ui"],
     },
     colors: {
-      primary: "#6B7280",
-      secondary: "#6f4D38",
-      accent: "#D6A373",
-      background: "#A07856",
-      canvas: "#F5F5F4",
+      primary: "#cbd7a1", // neutral/dark gray for text and base
+      secondary: "#808000", // olive green
+      accent: "#5a7132", // lighter green for highlights
+      background: "#808000", // soft green-beige background
+      canvas: "#f1f4e5", // off-white with greenish tint for canvases/cards
     },
     fontSize: {
       h1: ["2.5rem", { lineHeight: "1.1", fontWeight: "700" }],

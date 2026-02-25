@@ -19,6 +19,8 @@ type CartContextType = {
   handleIncreaseCartQuantity: (product: CartProductType) => void;
   handleDecreaseCartQuantity: (product: CartProductType) => void;
   handleClearCart: () => void;
+  paymentIntent: string | null;
+  handleSetPaymentIntent: (val: string | null) => void;
 };
 
 export const CartContext = createContext<CartContextType | null>(null);
@@ -34,6 +36,8 @@ export const CartContextProvider = (props: Props) => {
     null
   );
 
+  const [paymentIntent, setPaymentIntent] = useState<string | null>(null);
+
   console.log("qty", cartTotalQty);
   console.log("Total", cartTotalAmount);
 
@@ -41,7 +45,13 @@ export const CartContextProvider = (props: Props) => {
     const cartItems: any = localStorage.getItem("eliteCanvasCartItems");
     const cProducts: CartProductType[] | null = JSON.parse(cartItems);
 
+    const eliteCanvasPaymentIntent: string | null = localStorage.getItem(
+      "eliteCanvasPaymentIntent"
+    );
+    const paymentIntent: string | null = JSON.parse(eliteCanvasPaymentIntent);
+
     setCartProducts(cProducts);
+    setPaymentIntent(paymentIntent);
   }, []);
 
   // Calculating Total Quantity and price in Cart
@@ -81,7 +91,9 @@ export const CartContextProvider = (props: Props) => {
         updatedCart = [product];
       }
 
-      toast.success("Product added to cart");
+      // setTimeout(() => {
+      //   toast.success("Product added to cart");
+      // }, 0);
       localStorage.setItem("eliteCanvasCartItems", JSON.stringify(updatedCart));
       return updatedCart;
     });
@@ -174,6 +186,16 @@ export const CartContextProvider = (props: Props) => {
     localStorage.setItem("eliteCanvasCartItems", JSON.stringify(null));
   }, []);
 
+  // Handling Payment paymentIntent
+  const handleSetPaymentIntent = useCallback(
+    (val: string | null) => {
+      setPaymentIntent(val);
+      localStorage.setItem("eliteCanvasPaymentIntent", JSON.stringify(val));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [paymentIntent]
+  );
+
   const value = {
     cartTotalQty,
     cartTotalAmount,
@@ -183,6 +205,8 @@ export const CartContextProvider = (props: Props) => {
     handleIncreaseCartQuantity,
     handleDecreaseCartQuantity,
     handleClearCart,
+    paymentIntent,
+    handleSetPaymentIntent,
   };
 
   return <CartContext.Provider value={value} {...props} />;

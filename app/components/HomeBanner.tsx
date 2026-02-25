@@ -2,13 +2,13 @@ import Image from "next/image";
 
 const HomeBanner = () => {
   return (
-    <div className="relative bg-gradient-to-r from-secondary to-background mb-8 h-[400px] overflow-hidden">
+    <div className="relative bg-[#e0dfd5] mb-8 h-[400px] overflow-hidden">
       <div className="mx-auto  flex flex-col gap-20 md:flex-row items-center justify-center h-full">
         <div className="text-center">
-          <h1 className="text-2xl md:text-4xl text-white">
+          <h1 className="text-2xl md:text-4xl text-green-900">
             Modern Wall art that speaks to you.
           </h1>
-          <p className="italic text-white mt-4">
+          <p className="italic text-green-900 mt-4">
             Originals & Prints Handcrafted in Australia
           </p>
         </div>

@@ -1,18 +1,14 @@
 "use client";
 
-export const typeSizeMap = {
-  stretched: ["20x30cm", "30x40cm", "60x90cm", "90x120cm"],
-  floating: ["20x30cm", "30x40cm", "60x90cm"],
-  framedPhoto: ["A4", "A3", "A2"],
-};
-
-interface OptionType {
-  value: string;
-  label: string;
+interface Variant {
+  size: string;
+  style?: string;
+  price: number;
+  inStock: boolean;
 }
 
 interface SetStyleSizeProps {
-  options: OptionType[];
+  variants: Variant[];
   cartProduct: {
     selectedStyle: string;
     selectedSize: string;
@@ -24,71 +20,84 @@ interface SetStyleSizeProps {
 }
 
 const SetStyleSize = ({
-  options,
+  variants,
   cartProduct,
   handleChange,
 }: SetStyleSizeProps) => {
-  const sizes = typeSizeMap[cartProduct.selectedStyle] || [];
+  // Check if any variant has a style
+  const hasStyles = variants?.some((v) => !!v.style);
+
+  // Find the selected variant by style (if styles exist and one is selected)
+  const selectedVariant = hasStyles
+    ? variants.find((v) => v.style === cartProduct.selectedStyle)
+    : null;
+
+  // Determine sizes to show
+  const sizes = hasStyles
+    ? selectedVariant
+      ? [selectedVariant.size] // show size of selected style variant only
+      : [] // no style selected yet, so no sizes shown
+    : [...new Set(variants?.map((v) => v.size))]; // no styles: show all unique sizes
+
   return (
     <div>
-      {" "}
-      {/* Conditionally rendering sizes */}
-      <div className="mt-3">
+      {hasStyles && (
         <fieldset className="border p-4 rounded-md border-gray-200 mt-3">
-          <legend className="font-semibold"> Select Product Type</legend>
+          <legend className="font-semibold">Select Product Type</legend>
           <div className="flex gap-4">
-            {options.map((option) => (
+            {variants.map((variant) => (
               <label
-                key={option.value}
+                key={variant.style || "no-style-" + variant.size}
                 className="cursor-pointer relative flex items-center gap-2"
               >
                 <input
                   type="radio"
                   name="productType"
-                  value={option.value}
+                  value={variant.style}
                   className="sr-only peer"
-                  checked={cartProduct.selectedStyle === option.value}
-                  onChange={() => handleChange("selectedStyle", option.value)}
+                  checked={cartProduct.selectedStyle === variant.style}
+                  onChange={() =>
+                    handleChange("selectedStyle", variant.style || "")
+                  }
                   required
                 />
                 <div className="px-4 py-2 border rounded-md peer-checked:bg-background peer-checked:text-white transition">
-                  {option.label}
+                  {variant.style}
                 </div>
               </label>
             ))}
           </div>
         </fieldset>
+      )}
 
-        {/* Size Options */}
-        {sizes.length > 0 && (
-          <fieldset className="border p-4 rounded-md border-gray-200 mt-3">
-            <legend className="font-semibold">Choose Size</legend>
-            <div className="flex gap-4">
-              {sizes.map((size) => (
-                <label
-                  htmlFor={size}
-                  key={size}
-                  className="cursor-pointer relative flex items-center gap-2"
-                >
-                  <input
-                    type="radio"
-                    id={size}
-                    name="canvasSize"
-                    value={size}
-                    checked={cartProduct.selectedSize === size}
-                    onChange={() => handleChange("selectedSize", size)}
-                    className="sr-only peer "
-                    required
-                  />
-                  <div className="px-4 py-2 border rounded-md peer-checked:bg-background peer-checked:text-white transition">
-                    {size}
-                  </div>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-        )}
-      </div>
+      {sizes.length > 0 && (
+        <fieldset className="border p-4 rounded-md border-gray-200 mt-3">
+          <legend className="font-semibold">Choose Size</legend>
+          <div className="flex gap-4">
+            {sizes.map((size) => (
+              <label
+                htmlFor={size}
+                key={size}
+                className="cursor-pointer relative flex items-center gap-2"
+              >
+                <input
+                  type="radio"
+                  id={size}
+                  name="canvasSize"
+                  value={size}
+                  checked={cartProduct.selectedSize === size}
+                  onChange={() => handleChange("selectedSize", size)}
+                  className="sr-only peer"
+                  required
+                />
+                <div className="px-4 py-2 border rounded-md peer-checked:bg-background peer-checked:text-white transition">
+                  {size}
+                </div>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
     </div>
   );
 };

@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --nav-height: 200px;
+  --sage: #e7efe7;
+  --olive: #2f3f35;
+  --forest: #1f2f26;
+  --moss: #3a5a40;
+}
 .old-price {
   @apply line-through text-gray-700 text-2xl;
 }

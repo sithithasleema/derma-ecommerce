@@ -18,16 +18,9 @@ export const products = [
     framedSizes: ["A4", "A3", "A2"],
     inStock: true,
     images: [
-      {
-        color: "White",
-        colorCode: "#FFFFFF",
-        image: "https://m.media-amazon.com/images/I/71p-tHQ0u1L._AC_SX679_.jpg",
-      },
-      {
-        color: "Gray",
-        colorCode: "#808080",
-        image: "https://m.media-amazon.com/images/I/417tEj3iJ8L._AC_.jpg",
-      },
+      "https://m.media-amazon.com/images/I/71p-tHQ0u1L._AC_SX679_.jpg",
+
+      "https://m.media-amazon.com/images/I/417tEj3iJ8L._AC_.jpg",
     ],
     reviews: [],
   },

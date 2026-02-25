@@ -16,22 +16,11 @@ export const product = {
   framedSizes: ["A4", "A3", "A2"],
   inStock: true,
   images: [
-    {
-      color: "Black",
-      colorCode: "#000000",
-      image: "https://m.media-amazon.com/images/I/61g+McQpg7L._AC_SX679_.jpg",
-    },
-    {
-      color: "Blue",
-      colorCode: " #0000FF",
-      image: "https://m.media-amazon.com/images/I/713Om9vCHUL._AC_SX679_.jpg",
-    },
-    {
-      color: "Red",
-      colorCode: "#FF0000",
-      image:
-        "https://m.media-amazon.com/images/I/61thdjmfHcL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
-    },
+    "https://m.media-amazon.com/images/I/61g+McQpg7L._AC_SX679_.jpg",
+
+    "https://m.media-amazon.com/images/I/713Om9vCHUL._AC_SX679_.jpg",
+
+    "https://m.media-amazon.com/images/I/61thdjmfHcL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
   ],
   reviews: [
     {

@@ -7,7 +7,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaPinterest } from "react-icons/fa";
 const Footer = () => {
   return (
-    <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
+    <footer className="bg-[#1f2f26] text-slate-200 text-sm mt-16">
       <Container>
         <div className="flex flex-col md:flex-row justify-between pt-16 pb-8">
           <FooterList>

@@ -7,9 +7,17 @@ import Heading from "../components/Heading";
 import Button from "../components/Button";
 import ItemContent from "./ItemContent";
 import { formatPrice } from "@/utils/formatPrice";
+import { SafeUser } from "@/types";
+import { useRouter } from "next/navigation";
 
-const CartClient = () => {
+interface CartClientProps {
+  currentUser: SafeUser | null;
+}
+
+const CartClient = ({ currentUser }: CartClientProps) => {
   const { cartProducts, handleClearCart, cartTotalAmount } = useCart();
+
+  const router = useRouter();
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
@@ -68,7 +76,14 @@ const CartClient = () => {
             <span>{formatPrice(cartTotalAmount)}</span>
           </div>
           <p>Shipping and taxes calculated at checkout</p>
-          <Button label="Checkout" onClick={() => {}} custom />
+          <Button
+            label={currentUser ? "Checkout" : "Login to Checkout"}
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              currentUser ? router.push("/checkout") : router.push("/login");
+            }}
+            custom
+          />
           <Link
             href={"/"}
             className="text-slate-500 flex items-center gap-1 mt-2"

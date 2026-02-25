@@ -22,13 +22,8 @@ const ItemContent = ({ item }: ItemContentProps) => {
       <div className="col-span-2 justify-self-start flex gap-2 md:gap-4">
         <Link href={`/products/{item.id}`}>
           <div className="relative w-[100px]">
-            {item?.images?.[0]?.image && (
-              <Image
-                src={item.images[0].image}
-                alt={item.name}
-                width={500}
-                height={500}
-              />
+            {item?.image && (
+              <Image src={item?.image} alt={item.name} width={50} height={50} />
             )}
           </div>
         </Link>

@@ -39,11 +39,12 @@ model User {
   emailVerified DateTime?
   image         String?
   hashedPassword String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  role          Role @default(USER)
   accounts      Account[]
-  sessions      Session[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role Role @default(USER)
+  orders        Order[]
+  reviews       Review[]
 }
 
 enum Role{
@@ -51,14 +52,72 @@ enum Role{
     ADMIN
 }
 
-model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String   @unique
-  userId       String   @db.ObjectId
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Product{
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  description String
+  brand   String
+  category String
+  images  String[]
+  variantCount  Int @default(0)
+  variants Variant[]
+  reviews Review[]  
  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
+model Variant{
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  productId   String @db.ObjectId
+  size        String
+  style       String?
+  price       Float
+  inStock     Boolean
+ product   Product   @relation(fields: [productId], references: [id])
+}
+
+model Review{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  productId String @db.ObjectId
+  rating Int
+  comment String
+  createdDate DateTime @default(now())
+  product Product @relation(fields: [productId], references: [id])
+  user User @relation(fields:[userId], references: [id], onDelete: Cascade)
+}
+
+model Order{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  amount Float 
+  currency String
+  status String
+  deliveryStatus String?
+  createDate DateTime @default(now())
+  paymentIntentId String @unique
+  products CartProductType[]
+  address Address?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+type CartProductType{
+  id String
+  name String
+  description String
+  category String
+  brand String
+  selectedStyle String
+  selectedSize String
+  quantity Int
+  price Float
+  image String?
+}
+
+type Address{
+  city String
+  country String
+  line1 String
+  line2 String?
+  postal_code String
+  state String
+}
