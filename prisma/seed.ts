@@ -69,6 +69,90 @@ async function main() {
         { size: "100ml", style: "Dry", price: 58, inStock: true },
       ],
     },
+
+    {
+      name: "Rose Glow Cleanser",
+      description:
+        "A gentle foaming cleanser infused with rose water and aloe to remove impurities without stripping natural moisture.",
+      brand: "Pure Derma Botanics",
+      category: "cleanser",
+      images: [
+        "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?q=80&w=1200&auto=format&fit=crop",
+      ],
+      variants: [
+        { size: "150ml", style: "Normal", price: 22, inStock: true },
+        { size: "150ml", style: "Dry", price: 22, inStock: true },
+        { size: "150ml", style: "Sensitive", price: 22, inStock: true },
+      ],
+    },
+    {
+      name: "Vitamin C Brightening Serum",
+      description:
+        "A lightweight serum formulated with Vitamin C and niacinamide to brighten dull skin and improve texture.",
+      brand: "Pure Derma Botanics",
+      category: "serum",
+      images: [
+        "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1200&auto=format&fit=crop",
+      ],
+      variants: [
+        { size: "30ml", style: "All Skin Types", price: 38, inStock: true },
+      ],
+    },
+    {
+      name: "Hydra Boost Moisturizer",
+      description:
+        "Deeply hydrating daily moisturizer enriched with hyaluronic acid and ceramides for long-lasting softness.",
+      brand: "Pure Derma Botanics",
+      category: "moisturizer",
+      images: [
+        "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=1200&auto=format&fit=crop",
+      ],
+      variants: [
+        { size: "50ml", style: "Normal", price: 29, inStock: true },
+        { size: "50ml", style: "Dry", price: 29, inStock: true },
+        { size: "50ml", style: "Combination", price: 29, inStock: true },
+      ],
+    },
+    {
+      name: "Tea Tree Clarifying Spot Gel",
+      description:
+        "A fast-acting spot treatment with tea tree oil and salicylic acid to calm breakouts and reduce redness.",
+      brand: "Pure Derma Botanics",
+      category: "treatment",
+      images: [
+        "https://images.unsplash.com/photo-1619451334792-150fd785ee74?q=80&w=1200&auto=format&fit=crop",
+      ],
+      variants: [
+        { size: "15ml", style: "Acne-Prone", price: 19, inStock: true },
+      ],
+    },
+    {
+      name: "Botanical Repair Night Cream",
+      description:
+        "A rich overnight cream with plant oils and peptides to repair and rejuvenate skin while you sleep.",
+      brand: "Pure Derma Botanics",
+      category: "night cream",
+      images: [
+        "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1200&auto=format&fit=crop",
+      ],
+      variants: [
+        { size: "50ml", style: "Dry", price: 42, inStock: true },
+        { size: "50ml", style: "Mature", price: 42, inStock: true },
+      ],
+    },
+    {
+      name: "Daily Defense SPF 50",
+      description:
+        "Broad-spectrum sunscreen with lightweight texture that protects against UVA/UVB while keeping skin hydrated.",
+      brand: "Pure Derma Botanics",
+      category: "sunscreen",
+      images: [
+        "https://images.unsplash.com/photo-1598662971777-2c10b42d40a5?q=80&w=1200&auto=format&fit=crop",
+      ],
+      variants: [
+        { size: "60ml", style: "All Skin Types", price: 26, inStock: true },
+      ],
+    },
     {
       name: "Daily Mineral Sunscreen",
       description:
