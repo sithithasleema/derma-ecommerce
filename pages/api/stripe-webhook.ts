@@ -11,12 +11,12 @@ export const config = {
 };
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2025-06-30.basil",
+  apiVersion: "2026-02-25.clover",
 });
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const rawBody = await buffer(req);
   const signature = req.headers["stripe-signature"];
@@ -31,7 +31,7 @@ export default async function handler(
     event = stripe.webhooks.constructEvent(
       rawBody,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET!,
     );
   } catch (err: any) {
     console.log(`Webhook signature verification failed.`, err.message);
@@ -73,7 +73,7 @@ export default async function handler(
             console.log("Address added to order update");
           } else {
             console.log(
-              "Shipping address missing required fields, skipping address update"
+              "Shipping address missing required fields, skipping address update",
             );
           }
         }
