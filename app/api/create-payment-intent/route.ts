@@ -5,7 +5,7 @@ import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2025-08-27.basil",
+  apiVersion: "2026-02-25.clover",
 });
 
 // Calculate Total amount in server side again to avoid client side manipulation
